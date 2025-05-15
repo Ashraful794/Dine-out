@@ -46,27 +46,22 @@ function Dashboard() {
 
   const handleSubmitOrders = (order) => {
     setOrders((prevOrders) => {
-      // Find the highest existing ID
       const maxId =
         prevOrders.length > 0
           ? Math.max(...prevOrders.map((o) => parseInt(o.id || 0)))
           : 0;
-
-      // Assign the next ID to the new order
       const newOrder = { ...order, id: maxId + 1 };
-
-      // Add the new order to the list
       return [...prevOrders, newOrder];
     });
   };
 
-  const handleDeliverOrder = (orderId) => {
+  const handleDeliverOrder = (orderId, status) => {
     setOrders((prevOrders) => {
       return prevOrders.map((order) => {
         if (order.id === orderId) {
           return {
             ...order,
-            status: "DELIVERED",
+            status: status,
           };
         } else {
           return order;
