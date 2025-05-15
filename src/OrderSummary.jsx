@@ -1,5 +1,3 @@
-
-
 function OrderSummary({ orders }) {
   const totalOrders = orders.length;
   const pendingOrders = orders.filter(

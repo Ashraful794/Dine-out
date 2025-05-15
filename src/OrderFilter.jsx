@@ -1,5 +1,3 @@
-import React from "react";
-
 function OrderFilter({ onFilter }) {
   return (
     <div className="flex justify-between">

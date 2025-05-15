@@ -1,5 +1,3 @@
-import React from "react";
-
 function OrderList({ orders, onDelivered, onDelete }) {
   const sortedOrders = [...orders].sort((a, b) => b.id - a.id);
   return (
