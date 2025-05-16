@@ -16,7 +16,7 @@ function Dashboard() {
     {
       id: 1,
       name: "Hamburger",
-      price: 100,
+      price: 200,
       icon: hamburgerIcon,
     },
     {
