@@ -12,6 +12,7 @@ import OrderFilter from "./OrderFilter";
 function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [filterCriteria, setFilterCriteria] = useState("All");
+  const [id, setId] = useState(1);
   const items = [
     {
       id: 1,
@@ -45,34 +46,24 @@ function Dashboard() {
   });
 
   const handleSubmitOrders = (order) => {
-    setOrders((prevOrders) => {
-      const maxId =
-        prevOrders.length > 0
-          ? Math.max(...prevOrders.map((o) => parseInt(o.id || 0)))
-          : 0;
-      const newOrder = { ...order, id: maxId + 1 };
-      return [...prevOrders, newOrder];
-    });
+    setOrders([{ ...order, id: id }, ...orders]);
+    setId(id + 1);
   };
 
   const handleDeliverOrder = (orderId, status) => {
-    setOrders((prevOrders) => {
-      return prevOrders.map((order) => {
+    setOrders(
+      orders.map((order) => {
         if (order.id === orderId) {
-          return {
-            ...order,
-            status: status,
-          };
+          return { ...order, status: status };
         } else {
           return order;
         }
-      });
-    });
+      })
+    );
   };
+
   const handleDelete = (orderId) => {
-    setOrders((prevOrders) => {
-      return prevOrders.filter((order) => order.id !== orderId);
-    });
+    setOrders(orders.filter((order) => order.id !== orderId));
   };
 
   return (

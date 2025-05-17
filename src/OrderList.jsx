@@ -1,5 +1,4 @@
 function OrderList({ orders, onDelivered, onDelete }) {
-  const sortedOrders = [...orders].sort((a, b) => b.id - a.id);
   return (
     <div className="bg-cardbg rounded-lg p-4">
       <div className="reports-container">
@@ -15,7 +14,7 @@ function OrderList({ orders, onDelivered, onDelete }) {
             </tr>
           </thead>
           <tbody className="text-sm">
-            {sortedOrders.map((order) => {
+            {orders.map((order) => {
               return (
                 <tr className="border-t border-gray-700" key={order.id}>
                   <td className="py-3">{order.id}</td>

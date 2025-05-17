@@ -5,18 +5,11 @@ function OrderForm({ items, onSubmit }) {
   const [itemQuantities, setItemQuantities] = useState({});
   const [customerName, setCustomerName] = useState("");
 
-  const updateItemQuantity = (itemId, increment = true) => {
-    setItemQuantities((prevQuantities) => {
-      const currentQuantity = prevQuantities[itemId] || 0;
-      const newQuantity = increment
-        ? currentQuantity + 1
-        : Math.max(currentQuantity - 1, 0);
-
-      return {
-        ...prevQuantities,
-        [itemId]: newQuantity,
-      };
-    });
+  const updateItemQuantity = (itemId, num) => {
+    setItemQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [itemId]: Math.max((prevQuantities[itemId] || 0) + num, 0),
+    }));
   };
 
   const calculateTotalPrice = () => {
@@ -39,13 +32,12 @@ function OrderForm({ items, onSubmit }) {
       },
       0
     );
-    const order = {
+    onSubmit({
       customerName: customerName,
       items: orderItems,
       amount: totalPrice,
       status: "PENDING",
-    };
-    onSubmit(order);
+    });
     setCustomerName("");
     setItemQuantities({});
   };
@@ -80,8 +72,8 @@ function OrderForm({ items, onSubmit }) {
                   key={item.id}
                   item={item}
                   quantity={itemQuantities[item.id] || 0}
-                  onIncrement={() => updateItemQuantity(item.id, true)}
-                  onDecrement={() => updateItemQuantity(item.id, false)}
+                  onIncrement={() => updateItemQuantity(item.id, 1)}
+                  onDecrement={() => updateItemQuantity(item.id, -1)}
                 />
               );
             })}
