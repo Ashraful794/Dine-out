@@ -12,7 +12,6 @@ import OrderFilter from "./OrderFilter";
 function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [filterCriteria, setFilterCriteria] = useState("All");
-  const [id, setId] = useState(1);
   const items = [
     {
       id: 1,
@@ -46,8 +45,10 @@ function Dashboard() {
   });
 
   const handleSubmitOrders = (order) => {
-    setOrders([{ ...order, id: id }, ...orders]);
-    setId(id + 1);
+    setOrders([
+      { ...order, id: (orders.length > 0 ? orders[0].id : 0) + 1 },
+      ...orders,
+    ]);
   };
 
   const handleDeliverOrder = (orderId, status) => {
